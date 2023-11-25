@@ -1,0 +1,93 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Hotel</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+
+    <!--    Hotel-->
+    <string name="hotel_header">Hotel</string>
+    <string name="from">from</string>
+    <string name="ruble">₽</string>
+    <string name="about_hotel">About the hotel</string>
+
+    <string name="hotel_feature_1_title">Conveniences</string>
+    <string name="hotel_feature_1_descr">The most necessary</string>
+
+    <string name="hotel_feature_2_title">All inclusive</string>
+    <string name="hotel_feature_2_descr">The most necessary</string>
+
+    <string name="hotel_feature_3_title">What is not included</string>
+    <string name="hotel_feature_3_descr">The most necessary</string>
+
+    <string name="hotel_button">To choose a room</string>
+
+    <!--    Room-->
+    <string name="room_header">Steigenberger Makadi</string>
+    <string name="room_detail">More about room</string>
+    <string name="room_button">Choose a room</string>
+
+    <!--    Booking-->
+    <string name="booking_header">Booking</string>
+    <string name="booking_departure">Departure from</string>
+    <string name="booking_country_city">Country, city</string>
+    <string name="booking_dates">Dates</string>
+    <string name="booking_number_nights">Number of nights</string>
+    <string name="booking_hotel">Hotel</string>
+    <string name="booking_room">Room</string>
+    <string name="booking_nutrition">Nutrition</string>
+
+    <plurals name="plurals_nights" tools:ignore="UnusedQuantity">
+        <item quantity="zero">%1$d nights</item>
+        <item quantity="one">%1$d night</item>
+        <item quantity="two">%1$d nights</item>
+        <item quantity="few">%1$d nights</item>
+        <item quantity="many">%1$d nights</item>
+        <item quantity="other">%1$d nights</item>
+    </plurals>
+
+    <string name="booking_info_about_buyer">Buyer information</string>
+    <string name="booking_phone">Phone number</string>
+    <string name="booking_email">Mail</string>
+    <string name="booking_privacy">This data is not shared with anyone. After payment, we sent a check to the number and email you specified</string>
+
+    <string name="booking_first_name">Name</string>
+    <string name="booking_last_name">Last name</string>
+    <string name="booking_day_of_birth">Date of birth</string>
+    <string name="booking_citizenship">Citizenship</string>
+    <string name="booking_passport_number">Passport number</string>
+    <string name="booking_passport_validity_period">Passport validity period</string>
+
+    <string name="booking_add_tourist">Add tourist</string>
+
+    <string name="booking_tour">Tour</string>
+    <string name="booking_fuel_surcharge">Fuel surcharge</string>
+    <string name="booking_service_fee">Service fee</string>
+    <string name="booking_payable">Payable</string>
+
+    <string name="booking_pay">Pay</string>
+
+    <string-array name="booking_tourist_counter">
+        <item>First tourist</item>
+        <item>Second tourist</item>
+        <item>Third tourist</item>
+        <item>Fourth tourist</item>
+        <item>Fifth tourist</item>
+        <item>Sixth tourist</item>
+        <item>Seventh tourist</item>
+        <item>Eighth Tourist</item>
+        <item>Ninth Tourist</item>
+        <item>Tenth tourist</item>
+    </string-array>
+
+    <string name="booking_required_field">Required Field!</string>
+    <string name="booking_provide_valid_phone">Please, provide valid phone!</string>
+    <string name="booking_provide_valid_email">Please, provide valid email!</string>
+<!--    <string name="booking_invalid_phone">Invalid phone</string>-->
+<!--    <string name="booking_invalid_email">Invalid Email</string>-->
+
+    <!--    Paid-->
+    <string name="paid_order_is_paid">The order is paid</string>
+    <string name="paid_order_accepted">Your order has been accepted</string>
+    <string name="paid_order_description">Confirmation of order No. 104893 may take some time (from 1 hour to a day). As soon as we receive a response from the tour operator, you will receive a notification by email.</string>
+    <string name="paid_super">Super!</string>
+
+</resources>

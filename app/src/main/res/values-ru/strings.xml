@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Hotel</string>
+    <string name="ok">Ok</string>
+    <string name="no">Нет</string>
+
+    <!--    Hotel-->
+    <string name="hotel_header">Отель</string>
+    <string name="from">от</string>
+    <string name="ruble">₽</string>
+    <string name="about_hotel">Об отеле</string>
+
+    <string name="hotel_feature_1_title">Удобства</string>
+    <string name="hotel_feature_1_descr">Самое необходимое</string>
+
+    <string name="hotel_feature_2_title">Все включено</string>
+    <string name="hotel_feature_2_descr">Самое необходимое</string>
+
+    <string name="hotel_feature_3_title">Что не включено</string>
+    <string name="hotel_feature_3_descr">Самое необходимое</string>
+
+    <string name="hotel_button">К выбору номера</string>
+
+    <!--    Room-->
+    <string name="room_header">Steigenberger Makadi</string>
+    <string name="room_detail">Подробнее о номере</string>
+    <string name="room_button">Выбрать номер</string>
+
+    <!--    Booking-->
+    <string name="booking_header">Бронирование</string>
+    <string name="booking_departure">Вылет из</string>
+    <string name="booking_country_city">Страна, город</string>
+    <string name="booking_dates">Даты</string>
+    <string name="booking_number_nights">Кол-во ночей</string>
+    <string name="booking_hotel">Отель</string>
+    <string name="booking_room">Номер</string>
+    <string name="booking_nutrition">Питание</string>
+
+    <plurals name="plurals_nights" tools:ignore="UnusedQuantity">
+        <item quantity="zero">%1$d ночей</item>
+        <item quantity="one">%1$d ночь</item>
+        <item quantity="two">%1$d ночи</item>
+        <item quantity="few">%1$d ночи</item>
+        <item quantity="many">%1$d ночей</item>
+        <item quantity="other">%1$d ночей</item>
+    </plurals>
+
+    <string name="booking_info_about_buyer">Информация о покупателе</string>
+    <string name="booking_phone">Номер телефона</string>
+    <string name="booking_email">Почта</string>
+    <string name="booking_privacy">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
+
+    <string name="booking_first_name">Имя</string>
+    <string name="booking_last_name">Фамилия</string>
+    <string name="booking_day_of_birth">Дата рождения</string>
+    <string name="booking_citizenship">Гражданство</string>
+    <string name="booking_passport_number">Номер загранпаспорта</string>
+    <string name="booking_passport_validity_period">Срок действия загранпаспорта</string>
+
+    <string name="booking_add_tourist">Добавить туриста</string>
+
+    <string name="booking_tour">Тур</string>
+    <string name="booking_fuel_surcharge">Топливный сбор</string>
+    <string name="booking_service_fee">Сервисный сбор</string>
+    <string name="booking_payable">К оплате</string>
+
+    <string name="booking_pay">Оплатить</string>
+
+    <string-array name="booking_tourist_counter">
+        <item>Первый турист</item>
+        <item>Второй турист</item>
+        <item>Третий турист</item>
+        <item>Четвертый турист</item>
+        <item>Пятый турист</item>
+        <item>Шестой турист</item>
+        <item>Седьмой турист</item>
+        <item>Восьмой турист</item>
+        <item>Девятый турист</item>
+        <item>Десятый турист</item>
+    </string-array>
+
+    <string name="booking_required_field">Обязательное поле!</string>
+    <string name="booking_provide_valid_phone">Пожалуйста, введите правильный телефон!</string>
+    <string name="booking_provide_valid_email">Пожалуйста, введите правильную электронную почту!</string>
+<!--    <string name="booking_invalid_phone">Неправильный телефон</string>-->
+<!--    <string name="booking_invalid_email">Неправильный Email</string>-->
+
+    <!--    Paid-->
+    <string name="paid_order_is_paid">Заказ оплачен</string>
+    <string name="paid_order_accepted">Ваш заказ принят в работу</string>
+    <string name="paid_order_description">Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.</string>
+    <string name="paid_super">Супер!</string>
+
+</resources>
