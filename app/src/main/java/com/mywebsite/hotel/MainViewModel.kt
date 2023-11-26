@@ -7,9 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.mywebsite.hotel.models.booking.Booking
 import com.mywebsite.hotel.models.hotel.Hotel
 import com.mywebsite.hotel.models.room.Room
+import com.mywebsite.hotel.models.tourist.AddTouristParams
+import com.mywebsite.hotel.models.tourist.SaveListOfTouristsParams
+import com.mywebsite.hotel.models.tourist.Tourist
 import com.mywebsite.hotel.usecase.booking.GetBookingInfoUseCase
 import com.mywebsite.hotel.usecase.hotel.GetHotelInfoUseCase
 import com.mywebsite.hotel.usecase.room.GetListOfRoomsUseCase
+import com.mywebsite.hotel.usecase.tourist.AddTouristUseCase
+import com.mywebsite.hotel.usecase.tourist.ObserveAllTouristsUseCase
+import com.mywebsite.hotel.usecase.tourist.SaveListOfTouristsUseCase
+import com.mywebsite.hotel.usecase.utils.CreateInitialTouristsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +28,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getHotelInfoUseCase: GetHotelInfoUseCase,
     private val getListOfRoomsUseCase: GetListOfRoomsUseCase,
-    private val getBookingInfoUseCase: GetBookingInfoUseCase
+    private val getBookingInfoUseCase: GetBookingInfoUseCase,
+    private val addTouristUseCase: AddTouristUseCase,
+    private val saveListOfTouristsUseCase: SaveListOfTouristsUseCase,
+    private val observeAllTouristsUseCase: ObserveAllTouristsUseCase
 ) : ViewModel() {
 
 // 1. Variables_____________________________________________________________________________________
@@ -64,32 +74,22 @@ class MainViewModel @Inject constructor(
         _vmPhoneIsError.value = value
     }
 
-    private val _vmTouristQuantity = MutableStateFlow(2)
-    val vmTouristQuantity: StateFlow<Int> = _vmTouristQuantity
-    fun onAddTouristQuantityChange() {
-        if (vmTouristQuantity.value < 10) _vmTouristQuantity.value++
-    }
+    val mapOfEditedTourists = mapOf<String, Tourist>()
+    private val _vmTouristList = MutableStateFlow(listOf<Tourist>())
+    val vmTouristList: StateFlow<List<Tourist>> = _vmTouristList
 
 // 3. Utils_________________________________________________________________________________________
 
     init {
         getHotelInfo()
+        getListOfTourists()
     }
 
     fun validatePhoneIsRight(): Boolean {
         return vmPhone.value.let {
-            println("TestingApp-it: ${it}")
-            println("TestingApp-it2: ${it.length}")
             it.length == 10 && Patterns.PHONE.matcher(it).matches()
-//                    && checkAdditionalPhoneValidating(it)
         }
     }
-
-//    private fun checkAdditionalPhoneValidating(phoneNumber: String): Boolean {
-//        val pattern = "^(8|\\+?7)\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$"
-//        val reg = Regex(pattern)
-//        return reg.matches(phoneNumber)
-//    }
 
     fun validateEmailIsRight(): Boolean {
         return vmEmail.value.let { it.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches() }
@@ -126,6 +126,30 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             getBookingInfoUseCase.invoke()?.let {
                 _vmBooking.value = it
+            }
+        }
+    }
+
+    fun addTourist() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (vmTouristList.value.size < 10) addTouristUseCase.invoke(AddTouristParams(Tourist()))
+        }
+    }
+
+    fun saveListOfTourists() {
+        viewModelScope.launch(Dispatchers.IO) {
+            saveListOfTouristsUseCase.invoke(SaveListOfTouristsParams(vmTouristList.value))
+        }
+    }
+
+    private fun getListOfTourists() {
+        viewModelScope.launch(Dispatchers.IO) {
+            observeAllTouristsUseCase.invoke().collect {
+                _vmTouristList.value = it
+
+                if (it.isEmpty()) {
+                    saveListOfTouristsUseCase.invoke(SaveListOfTouristsParams(CreateInitialTouristsUseCase().invoke()))
+                }
             }
         }
     }

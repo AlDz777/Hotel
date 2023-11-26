@@ -4,10 +4,12 @@ import com.mywebsite.hotel.data.storage.models.booking.BookingDto
 import com.mywebsite.hotel.data.storage.models.room.RoomDto
 import com.mywebsite.hotel.data.storage.models.hotel.AboutTheHotelDto
 import com.mywebsite.hotel.data.storage.models.hotel.HotelDto
+import com.mywebsite.hotel.data.storage.room.entities.TouristEntity
 import com.mywebsite.hotel.models.hotel.AboutTheHotel
 import com.mywebsite.hotel.models.hotel.Hotel
 import com.mywebsite.hotel.models.room.Room
 import com.mywebsite.hotel.models.booking.Booking
+import com.mywebsite.hotel.models.tourist.Tourist
 
 object DatabaseMapper {
 
@@ -74,3 +76,22 @@ object DatabaseMapper {
         )
     }
 }
+
+//TouristInfo_______________________________________________________________________________________
+
+    fun mapTouristModelListToEntity(touristList: List<Tourist>): List<TouristEntity> {
+        return touristList.map { mapModelToEntity(it) }
+    }
+
+    fun mapModelToEntity(touristModel: Tourist): TouristEntity {
+        return TouristEntity(
+            key = touristModel.key,
+            createdDate = touristModel.createdDate,
+            firstName = touristModel.firstName,
+            lastName = touristModel.lastName,
+            dayOfBirth = touristModel.dayOfBirth,
+            citizenship = touristModel.citizenship,
+            passportNum = touristModel.passportNum,
+            passportValidation = touristModel.passportValidation
+        )
+    }

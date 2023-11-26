@@ -2,6 +2,7 @@ package com.mywebsite.hotel.di
 
 import com.mywebsite.hotel.data.repository.HotelRepositoryImpl
 import com.mywebsite.hotel.data.storage.network.ApiService
+import com.mywebsite.hotel.data.storage.room.dao.TouristDao
 import com.mywebsite.hotel.repository.HotelRepository
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideHotelRepository(apiService: ApiService) : HotelRepository {
-        return HotelRepositoryImpl(apiService = apiService)
+    fun provideHotelRepository(apiService: ApiService, touristDao: TouristDao) : HotelRepository {
+        return HotelRepositoryImpl(apiService = apiService, touristDao = touristDao)
     }
 }

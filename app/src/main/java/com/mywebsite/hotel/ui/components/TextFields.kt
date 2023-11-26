@@ -31,7 +31,6 @@ import com.mywebsite.hotel.helpers.MaskVisualTransformation
 import com.mywebsite.hotel.ui.components.NumberDefaults.INPUT_LENGTH
 import com.mywebsite.hotel.ui.components.NumberDefaults.MASK
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldSimple(labelText: String,
                     value: String,

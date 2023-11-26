@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mywebsite.hotel.MainViewModel
 import com.mywebsite.hotel.R
-import com.mywebsite.hotel.models.Tourist
+import com.mywebsite.hotel.models.tourist.Tourist
 import com.mywebsite.hotel.models.booking.Booking
 import com.mywebsite.hotel.ui.components.BottomWithButton
 import com.mywebsite.hotel.ui.components.HeaderWithArrowBack
@@ -177,7 +177,7 @@ fun BookingBox4Buyer(viewModel: MainViewModel) {
 
 @Composable
 fun ListOfTourists(viewModel: MainViewModel) {
-    val touristQuantity = viewModel.vmTouristQuantity.collectAsState()
+    val tourists = viewModel.vmTouristList.collectAsState()
 
     val oneCardSize = 430.dp
 
@@ -188,15 +188,16 @@ fun ListOfTourists(viewModel: MainViewModel) {
     var parentHeight by remember { mutableStateOf(0) }
     var listHeight by remember { mutableStateOf(0) }
 
-    Column(modifier=Modifier.fillMaxSize()
+    Column(modifier= Modifier
+        .fillMaxSize()
         .onSizeChanged {
             parentHeight = it.height
             listHeight = it.height
         }) {
 
-        for (index in 0..touristQuantity.value.minus(1)) {
+        for (index in 0..tourists.value.size.minus(1)) {
             SpacerHeight(8.dp)
-            BookingTouristBoxCreator(touristsHeaderArray[index], mIsVisible = index == 0)
+            BookingTouristBoxCreator(touristsHeaderArray[index], index, tourists.value[index])
         }
 
 //        LazyColumn(
@@ -237,7 +238,7 @@ fun ListOfTourists(viewModel: MainViewModel) {
 }
 
 @Composable
-fun BookingTouristBoxCreator(header: String, mIsVisible: Boolean = false) {
+fun BookingTouristBoxCreator(header: String, index: Int, currentTourist: Tourist) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -248,53 +249,41 @@ fun BookingTouristBoxCreator(header: String, mIsVisible: Boolean = false) {
                 vertical = dimensionResource(R.dimen.screen_vertical)
             )
     ) {
-        var isVisible by remember {mutableStateOf(mIsVisible) }
+        var isVisible by remember { mutableStateOf(index == 0) }
 
         var icon by remember { mutableStateOf(if (isVisible) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown) }
 
         TouristHeader(header, icon, iconOnClick = { isVisible = !isVisible } )
         SpacerHeight(20.dp)
 
-        val tourist = Tourist()
-
-        val firstName = remember{ mutableStateOf("") }
-        val lastName = remember{ mutableStateOf("") }
-        val dayOfBirth = remember{ mutableStateOf("") }
-        val citizens = remember{ mutableStateOf("") }
-        val passportNum = remember{ mutableStateOf("") }
-        val passportValidation = remember{ mutableStateOf("") }
+        val firstName = remember{ mutableStateOf(currentTourist.firstName) }
+        val lastName = remember{ mutableStateOf(currentTourist.lastName) }
+        val dayOfBirth = remember{ mutableStateOf(currentTourist.dayOfBirth) }
+        val citizenship = remember{ mutableStateOf(currentTourist.citizenship) }
+        val passportNum = remember{ mutableStateOf(currentTourist.passportNum) }
+        val passportValidation = remember{ mutableStateOf(currentTourist.passportValidation) }
 
         if (isVisible) {
             icon = Icons.Filled.KeyboardArrowUp
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                TextFieldSimple(labelText = stringResource(R.string.booking_first_name), value = firstName.value, onValueChanged = { newText: String -> firstName.value = newText } )
-                TextFieldSimple(labelText = stringResource(R.string.booking_last_name), value = lastName.value, onValueChanged = { newText -> lastName.value = newText} )
-                TextFieldSimple(labelText = stringResource(R.string.booking_day_of_birth), value = dayOfBirth.value, onValueChanged = { newText -> dayOfBirth.value = newText} )
-                TextFieldSimple(labelText = stringResource(R.string.booking_citizenship), value = citizens.value, onValueChanged = { newText -> citizens.value = newText} )
-                TextFieldSimple(labelText = stringResource(R.string.booking_passport_number), value = passportNum.value, onValueChanged = { newText -> passportNum.value = newText} )
-                TextFieldSimple(labelText = stringResource(R.string.booking_passport_validity_period), value = passportValidation.value, onValueChanged = { newText -> passportValidation.value = newText} )
+                TextFieldSimple(labelText = stringResource(R.string.booking_first_name), value = firstName.value, onValueChanged = { newText: String ->
+                    firstName.value = newText ; currentTourist.firstName = newText })
+                TextFieldSimple(labelText = stringResource(R.string.booking_last_name), value = lastName.value, onValueChanged = { newText ->
+                    lastName.value = newText ; currentTourist.lastName = newText } )
+                TextFieldSimple(labelText = stringResource(R.string.booking_day_of_birth), value = dayOfBirth.value, onValueChanged = { newText ->
+                    dayOfBirth.value = newText ; currentTourist.dayOfBirth = newText } )
+                TextFieldSimple(labelText = stringResource(R.string.booking_citizenship), value = citizenship.value, onValueChanged = { newText ->
+                    citizenship.value = newText ; currentTourist.citizenship = newText } )
+                TextFieldSimple(labelText = stringResource(R.string.booking_passport_number), value = passportNum.value, onValueChanged = { newText ->
+                    passportNum.value = newText ; currentTourist.passportNum = newText } )
+                TextFieldSimple(labelText = stringResource(R.string.booking_passport_validity_period), value = passportValidation.value, onValueChanged = { newText ->
+                    passportValidation.value = newText ; currentTourist.passportValidation = newText } )
             }
         } else {
             icon = Icons.Filled.KeyboardArrowDown
         }
     }
 }
-
-//@Composable
-//fun BookingBox6() {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .clip(RoundedCornerShape(12.dp))
-//            .background(Color.White)
-//            .padding(
-//                horizontal = dimensionResource(R.dimen.screen_horizontal),
-//                vertical = dimensionResource(R.dimen.screen_vertical)
-//            )
-//    ) {
-//        TouristHeader(stringResource(R.string.booking_second_tourist), icon = Icons.Filled.KeyboardArrowDown)
-//    }
-//}
 
 @Composable
 fun BookingBox7AddTourist(viewModel: MainViewModel) {
@@ -314,7 +303,7 @@ fun BookingBox7AddTourist(viewModel: MainViewModel) {
                 .clip(RoundedCornerShape(6.dp))
                 .background(colorResource(R.color.blue_special)),
             iconTint = colorResource(R.color.white),
-            iconOnClick = { viewModel.onAddTouristQuantityChange() }
+            iconOnClick = { viewModel.addTourist() }
         )
     }
 }
@@ -375,7 +364,10 @@ fun BookingBox9PayButton(
                 viewModel.setEmailIsError(true)
                 invalidEmailToast = true
             }
-            else -> onNavigateToPaidScreen()
+            else -> {
+                viewModel.saveListOfTourists()
+                onNavigateToPaidScreen()
+            }
 
         }
     }
